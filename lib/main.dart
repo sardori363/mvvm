@@ -3,8 +3,9 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_provider/firebase_options.dart';
-import 'package:flutter_provider/feature/main/presentation/pages/details_page.dart';
-import 'package:flutter_provider/feature/main/presentation/pages/home_page.dart';
+import 'package:flutter_provider/feature/home/presentation/pages/details_page.dart';
+import 'package:flutter_provider/feature/home/presentation/pages/home_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +17,11 @@ Future<void> main() async {
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
 
-  runApp(MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {

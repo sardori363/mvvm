@@ -3,8 +3,11 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_provider/data/entity/user.dart';
 import 'package:flutter_provider/data/repository/user_repository_implementation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MainVM with ChangeNotifier{
+var homeRef = ChangeNotifierProvider.autoDispose<HomeNotifier>((ref) => HomeNotifier());
+
+class HomeNotifier with ChangeNotifier{
   List<User> users = [];
   bool isLoading = false;
   UserRepositoryImplementation appRepositoryImplementation = UserRepositoryImplementation();
@@ -14,9 +17,9 @@ class MainVM with ChangeNotifier{
     isLoading = false;
     users = await appRepositoryImplementation.getUsers() ?? [];
     isLoading = true;
-  }
+  } 
 
-  MainVM(){
+  HomeNotifier(){
     log("message");
     getAllUsers();
   }
